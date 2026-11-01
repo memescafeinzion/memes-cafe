@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { MENU, money, sectionsFor, VIEWS, type MenuView } from "@/data/menu";
+import { useCart } from "@/lib/cart";
 import { isLunchService } from "@/data/place";
 import { cn } from "@/lib/cn";
 
@@ -8,6 +9,7 @@ export function MenuBoard({ initialView }: { initialView: MenuView }) {
   const [view, setView] = useState<MenuView>(initialView);
   const [query, setQuery] = useState("");
   const lunch = isLunchService();
+  const cart = useCart();
 
   const sections = useMemo(() => sectionsFor(view, lunch, query), [view, lunch, query]);
   const shown = sections.reduce((n, section) => n + section.items.length, 0);
@@ -82,9 +84,18 @@ export function MenuBoard({ initialView }: { initialView: MenuView }) {
                       <h3 className="font-semibold text-ink">{item.name}</h3>
                       {item.detail ? <p className="mt-0.5 text-sm text-bark">{item.detail}</p> : null}
                     </div>
-                    <p className="shrink-0 font-semibold text-amber-deep tabular-nums">
-                      {item.price == null ? "Ask" : money(item.price)}
-                    </p>
+                    <div className="flex shrink-0 flex-col items-end gap-2">
+                      <p className="font-semibold text-amber-deep tabular-nums">
+                        {item.price == null ? "Ask" : money(item.price)}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => cart.add(item)}
+                        className="min-h-11 rounded-full bg-amber px-4 text-sm font-semibold text-ink"
+                      >
+                        Add
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>

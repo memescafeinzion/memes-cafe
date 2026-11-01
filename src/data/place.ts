@@ -7,7 +7,6 @@ export const PLACE = {
   city: "Springdale, UT 84767",
   mapsUrl:
     "https://www.google.com/maps/dir/?api=1&destination=975+Zion+Park+Blvd,+Springdale,+UT+84767",
-  orderUrl: "https://memescafezion.com/menu%2Fonline-orders",
   instagram: "https://www.instagram.com/memescafezion/",
   facebook: "https://www.facebook.com/423487421022688",
   yelp: "https://www.yelp.com/biz/memes-cafe-springdale",

@@ -2,6 +2,7 @@ import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-r
 import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { Shell } from "@/components/shell";
+import { CartProvider } from "@/lib/cart";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "MeMe's Café";
@@ -40,9 +41,11 @@ export const Route = createRootRoute({
       <body>
         <PreviewHostBridge />
         <AuthProvider>
-          <Shell>
-            <Outlet />
-          </Shell>
+          <CartProvider>
+            <Shell>
+              <Outlet />
+            </Shell>
+          </CartProvider>
         </AuthProvider>
         <Scripts />
       </body>

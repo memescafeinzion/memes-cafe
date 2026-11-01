@@ -1,9 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { MenuBoard } from "@/components/menu-board";
 import { buttonClass } from "@/components/ui/button";
 import { VIEWS, type MenuView } from "@/data/menu";
-import { isLunchService, PLACE, serviceLine } from "@/data/place";
+import { isLunchService, serviceLine } from "@/data/place";
 
 const VIEW_IDS = VIEWS.map((view) => view.id);
 
@@ -47,15 +47,15 @@ function MenuPage() {
           <p className="text-sm font-semibold tracking-wide text-amber-deep uppercase">{line}</p>
           <h1 className="font-display text-4xl font-semibold text-ink">Menu</h1>
         </div>
-        <a href={PLACE.orderUrl} className={buttonClass("ink")} target="_blank" rel="noreferrer">
-          Takeout
-        </a>
+        <Link to="/order" className={buttonClass("ink")}>
+          Your order
+        </Link>
       </div>
       <p className="mt-2 text-sm text-bark">
         {isLunchService()
           ? "Lunch and dinner are on. Breakfast plates ended at 11:30. Crepes did not."
           : "Breakfast is on until 11:30. Burgers and sandwiches start after that."}{" "}
-        Eating in? Order at the register. Online orders are pickup only.
+        Eating in? Order at the register. Pickup orders are placed on this site and paid when you collect them.
       </p>
       <div className="mt-6">
         <MenuBoard key={view} initialView={view} />

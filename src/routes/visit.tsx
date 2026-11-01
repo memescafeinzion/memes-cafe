@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Bus, Car, Mail, Phone } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 import { PLACE } from "@/data/place";
@@ -88,19 +88,14 @@ function VisitPage() {
       </section>
 
       <section className="mt-4 rounded-card bg-ink p-5 text-cream">
-        <h2 className="font-display text-2xl font-semibold">Takeout</h2>
+        <h2 className="font-display text-2xl font-semibold">Pickup</h2>
         <p className="mt-2 text-sm text-cream/80">
-          Online orders are for pickup only. If you are eating at the café, order when you arrive — don't
-          place a web order and then sit down.
+          Build the order on this site. Text sends it to the café. Pay when you pick it up. If you are eating here,
+          order at the register instead.
         </p>
-        <a
-          href={PLACE.orderUrl}
-          target="_blank"
-          rel="noreferrer"
-          className={`${buttonClass("primary")} mt-4`}
-        >
-          Order takeout
-        </a>
+        <Link to="/order" className={`${buttonClass("primary")} mt-4`}>
+          Start a pickup order
+        </Link>
         <p className="mt-4 flex items-center gap-2 text-sm">
           <Mail className="size-4 text-amber" aria-hidden />
           <a href={`mailto:${PLACE.email}`} className="underline">

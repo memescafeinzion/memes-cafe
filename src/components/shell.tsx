@@ -2,6 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { Home, MapPin, Phone, UtensilsCrossed } from "lucide-react";
 import type { ReactNode } from "react";
 import { PLACE } from "@/data/place";
+import { money } from "@/data/menu";
+import { useCart } from "@/lib/cart";
 
 const tabs = [
   { to: "/", label: "Home", icon: Home, exact: true },
@@ -10,6 +12,7 @@ const tabs = [
 ] as const;
 
 export function Shell({ children }: { children: ReactNode }) {
+  const cart = useCart();
   return (
     <div className="min-h-screen">
       <header className="sticky top-0 z-40 border-b border-line bg-cream/95 backdrop-blur-sm">
@@ -33,11 +36,25 @@ export function Shell({ children }: { children: ReactNode }) {
             <a href={PLACE.phoneTel} className="min-h-11 rounded-full bg-amber px-4 py-2 font-semibold text-ink">
               Call
             </a>
+            <Link to="/order" className="min-h-11 rounded-full bg-ink px-4 py-2 font-semibold text-cream">
+              Order{cart.count > 0 ? ` ${cart.count}` : ""}
+            </Link>
           </nav>
         </div>
       </header>
 
       <main className="pb-nav md:pb-0">{children}</main>
+
+      {cart.count > 0 ? (
+        <Link
+          to="/order"
+          className="fixed inset-x-0 z-40 flex min-h-12 items-center justify-between bg-amber px-4 font-semibold text-ink md:hidden"
+          style={{ bottom: "calc(4.25rem + env(safe-area-inset-bottom))" }}
+        >
+          <span>Your order · {cart.count}</span>
+          <span className="tabular-nums">{money(cart.total)}</span>
+        </Link>
+      ) : null}
 
       <nav
         aria-label="Primary"
