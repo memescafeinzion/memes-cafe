@@ -40,7 +40,7 @@ function Home() {
     <div>
       <section className="mx-auto max-w-5xl px-4 pt-6 pb-8">
         <img
-          src="/media/logo.png"
+          src={`${import.meta.env.BASE_URL}media/logo.png`}
           alt="MeMe's Café. Breakfast, lunch, and dinner."
           className="mx-auto w-full max-w-md"
         />
@@ -108,7 +108,7 @@ function Home() {
           </Link>
         </div>
         <div className="rounded-card bg-ink p-5">
-          <img src="/media/zion.png" alt="" className="w-full mix-blend-screen" />
+          <img src={`${import.meta.env.BASE_URL}media/zion.png`} alt="" className="w-full mix-blend-screen" />
           <p className="mt-3 flex items-start gap-2 text-sm text-cream">
             <Footprints className="mt-0.5 size-4 shrink-0 text-amber" aria-hidden />
             Eat, then walk to the shuttle. Breakfast runs to 11:30. Sweet crepes stay on all day.
