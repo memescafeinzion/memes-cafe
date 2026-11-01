@@ -6,7 +6,7 @@ import { PLACE } from "@/data/place";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    meta: [{ title: "MeMe's Café · Springdale, Utah" }],
+    meta: [{ title: "MeMe's Café" }],
   }),
   component: Home,
 });

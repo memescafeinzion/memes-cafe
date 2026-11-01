@@ -6,6 +6,9 @@ import { CartProvider } from "@/lib/cart";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "MeMe's Café";
+const SHARE_IMAGE = "https://memescafeinzion.github.io/memes-cafe/og.jpg";
+const SHARE_DESC =
+  "From-scratch breakfast, crepes, burgers, and sandwiches. Open daily 8am–9pm.";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -13,11 +16,17 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: APP_NAME },
-      {
-        name: "description",
-        content:
-          "MeMe's Café in Springdale, Utah. From-scratch breakfast, crepes, burgers, and sandwiches at Zion shuttle stop 5. Open daily 8am–9pm.",
-      },
+      { name: "description", content: SHARE_DESC },
+      { property: "og:title", content: APP_NAME },
+      { property: "og:description", content: SHARE_DESC },
+      { property: "og:image", content: SHARE_IMAGE },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: APP_NAME },
+      { name: "twitter:description", content: SHARE_DESC },
+      { name: "twitter:image", content: SHARE_IMAGE },
       { name: "theme-color", content: "#16110C" },
     ],
     links: [
