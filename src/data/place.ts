@@ -1,12 +1,17 @@
 export const PLACE = {
   name: "MeMe's Café",
   phoneDisplay: "(435) 772-0114",
-  phoneTel: "tel:4357720114",
+  phoneTel: "tel:+14357720114",
   email: "admin@memescafezion.com",
   street: "975 Zion Park Blvd",
   city: "Springdale, UT 84767",
   mapsUrl:
     "https://www.google.com/maps/dir/?api=1&destination=975+Zion+Park+Blvd,+Springdale,+UT+84767",
+  appleMapsUrl: "https://maps.apple.com/?address=975+Zion+Park+Blvd,Springdale,UT+84767",
+  googleUrl:
+    "https://www.google.com/maps/search/?api=1&query=MeMe%27s+Cafe+975+Zion+Park+Blvd+Springdale+UT",
+  tripadvisorUrl:
+    "https://www.tripadvisor.com/Restaurant_Review-g61001-d3333371-Reviews-Meme_s_Cafe-Springdale_Utah.html",
   instagram: "https://www.instagram.com/memescafezion/",
   facebook: "https://www.facebook.com/423487421022688",
   yelp: "https://www.yelp.com/biz/memes-cafe-springdale",

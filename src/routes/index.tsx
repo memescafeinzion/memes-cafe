@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Bus, Car, Clock } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 import { money } from "@/data/menu";
-import { PLACE } from "@/data/place";
+import { PLACE, serviceLine } from "@/data/place";
 
 const media = (name: string) => `${import.meta.env.BASE_URL}media/gallery/${name}`;
 
@@ -90,23 +90,16 @@ function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/20" />
         <div className="relative mx-auto flex min-h-[70vh] max-w-5xl flex-col justify-end px-4 pt-16 pb-8">
-          <p className="text-sm font-semibold tracking-wide text-amber uppercase">
-            #1 in Springdale · Tripadvisor and Restaurant Guru
-          </p>
+          <p className="text-sm font-semibold tracking-wide text-amber uppercase">{serviceLine()}</p>
           <h1 className="mt-2 max-w-xl font-display text-5xl leading-none font-semibold">
             Scratch-made food near Zion.
           </h1>
           <p className="mt-3 max-w-md text-lg text-cream/90">
             Crepes, breakfast, and half-pound burgers. Open daily, 8am to 9pm. Est. 2012.
           </p>
-          <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-            <Link to="/menu" search={{ view: "now" }} className={buttonClass("primary")}>
-              See the menu
-            </Link>
-            <Link to="/order" className={buttonClass("ink")}>
-              Start a pickup order
-            </Link>
-          </div>
+          <Link to="/order" className={`${buttonClass("primary")} mt-5`}>
+            Start a pickup order
+          </Link>
         </div>
       </section>
 
@@ -118,20 +111,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-5xl grid-cols-3 gap-3 px-4 py-8">
-        {[
-          ["14", "Years in Springdale"],
-          ["#1", "Restaurant in town"],
-          ["5,000+", "Five-star reviews"],
-        ].map(([n, label]) => (
-          <div key={label} className="rounded-card border border-line bg-paper px-3 py-4 text-center">
-            <p className="font-display text-3xl font-semibold text-amber-deep">{n}</p>
-            <p className="mt-1 text-sm text-bark">{label}</p>
-          </div>
-        ))}
-      </section>
-
-      <section className="mx-auto max-w-5xl px-4 pb-4">
+      <section className="mx-auto max-w-5xl px-4 pb-4 pt-8">
         <h2 className="font-display text-3xl font-semibold text-ink">Pictures</h2>
         <p className="mt-1 max-w-xl text-bark">The patio, the plates, and the canyon you eat in front of.</p>
         <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
@@ -204,22 +184,11 @@ function Home() {
             ))}
           </div>
           <p className="mt-4 text-sm text-bark">
-            Ranked #1 restaurant in Springdale on Restaurant Guru, a 2026 award winner.{" "}
-            <a
-              href="https://restaurantguru.com/MeMes-Cafe-Springdale-Utah"
-              className="underline"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Restaurant Guru
+            <a href={PLACE.googleUrl} className="underline" target="_blank" rel="noreferrer">
+              Google
             </a>
             {" · "}
-            <a
-              href="https://www.tripadvisor.com/Restaurant_Review-g61001-d3333371-Reviews-Meme_s_Cafe-Springdale_Utah.html"
-              className="underline"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={PLACE.tripadvisorUrl} className="underline" target="_blank" rel="noreferrer">
               Tripadvisor
             </a>
           </p>

@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Home, MapPin, Phone, UtensilsCrossed } from "lucide-react";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { PLACE } from "@/data/place";
 import { money } from "@/data/menu";
 import { useCart } from "@/lib/cart";
@@ -43,7 +43,41 @@ export function Shell({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <main className="pb-nav md:pb-0">{children}</main>
+      <div className="pb-nav md:pb-0">
+        <main>{children}</main>
+        <footer className="border-t border-line bg-ink px-4 py-8 text-cream">
+          <div className="mx-auto max-w-5xl">
+            <p className="font-display text-xl font-semibold">{PLACE.name}</p>
+            <p className="mt-2 text-sm text-cream/80">
+              {PLACE.street}
+              <br />
+              {PLACE.city}
+            </p>
+            <p className="mt-2 text-sm">
+              <a href={PLACE.phoneTel} className="underline">
+                {PLACE.phoneDisplay}
+              </a>
+              <br />
+              <a href={`mailto:${PLACE.email}`} className="underline">
+                {PLACE.email}
+              </a>
+            </p>
+            <p className="mt-2 text-sm text-cream/80">Open daily, 8:00am–9:00pm</p>
+            <p className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-sm">
+              <a href={PLACE.googleUrl} className="underline" target="_blank" rel="noreferrer">
+                Google
+              </a>
+              <a href={PLACE.appleMapsUrl} className="underline" target="_blank" rel="noreferrer">
+                Apple Maps
+              </a>
+              <a href={PLACE.tripadvisorUrl} className="underline" target="_blank" rel="noreferrer">
+                Tripadvisor
+              </a>
+            </p>
+            <VisitCount />
+          </div>
+        </footer>
+      </div>
 
       {cart.count > 0 ? (
         <Link
@@ -86,4 +120,18 @@ export function Shell({ children }: { children: ReactNode }) {
       </nav>
     </div>
   );
+}
+
+function VisitCount() {
+  const [count, setCount] = useState<string | null>(null);
+  useEffect(() => {
+    fetch("https://countapi.mileshilliard.com/api/v1/hit/memescafeinzion.github.io")
+      .then((response) => response.json())
+      .then((data: { value?: string | number }) => {
+        if (data.value != null) setCount(String(data.value));
+      })
+      .catch(() => setCount(null));
+  }, []);
+  if (!count) return null;
+  return <p className="mt-4 text-xs text-cream/60">Site visits {count}</p>;
 }

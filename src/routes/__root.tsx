@@ -3,6 +3,7 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { Shell } from "@/components/shell";
 import { CartProvider } from "@/lib/cart";
+import { PLACE } from "@/data/place";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "MeMe's Café";
@@ -39,6 +40,35 @@ export const Route = createRootRoute({
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Restaurant",
+          name: PLACE.name,
+          telephone: "+14357720114",
+          email: PLACE.email,
+          url: "https://memescafeinzion.github.io/memes-cafe/",
+          image: SHARE_IMAGE,
+          servesCuisine: ["American", "Breakfast", "Crepes"],
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "975 Zion Park Blvd",
+            addressLocality: "Springdale",
+            addressRegion: "UT",
+            postalCode: "84767",
+            addressCountry: "US",
+          },
+          openingHoursSpecification: {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            opens: "08:00",
+            closes: "21:00",
+          },
+        }),
       },
     ],
   }),
