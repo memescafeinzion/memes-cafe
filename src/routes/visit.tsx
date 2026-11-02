@@ -56,7 +56,8 @@ function VisitPage() {
           ))}
         </dl>
         <p className="pt-3 text-sm text-bark">
-          First come, first served. Indoor tables and the outside patio. We don't take reservations.
+          First come, first served. Indoor tables and the outside patio. No reservations. Hours may vary by
+          season.
         </p>
       </section>
 
@@ -107,6 +108,7 @@ function VisitPage() {
 
       <section className="mt-6 flex flex-wrap gap-2 pb-4">
         {[
+          ["Tripadvisor", "https://www.tripadvisor.com/Restaurant_Review-g61001-d3333371-Reviews-Meme_s_Cafe-Springdale_Utah.html"],
           ["Instagram", PLACE.instagram],
           ["Facebook", PLACE.facebook],
           ["Yelp", PLACE.yelp],

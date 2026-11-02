@@ -1,63 +1,112 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Bus, Car, Clock, Footprints } from "lucide-react";
+import { Bus, Car, Clock } from "lucide-react";
 import { buttonClass } from "@/components/ui/button";
 import { money } from "@/data/menu";
 import { PLACE } from "@/data/place";
 
+const media = (name: string) => `${import.meta.env.BASE_URL}media/gallery/${name}`;
+
 export const Route = createFileRoute("/")({
   head: () => ({
-    meta: [{ title: "MeMe's Café" }],
+    meta: [
+      { title: "MeMe's Café" },
+      {
+        name: "description",
+        content:
+          "Scratch-made crepes, breakfast, and burgers near Zion National Park. Open daily 8am–9pm in Springdale.",
+      },
+    ],
   }),
   component: Home,
 });
 
 const favorites = [
   {
-    id: "bacon-and-egg",
-    view: "lunch" as const,
-    name: "Bacon and Egg Burger",
-    price: 19,
-    detail: "Crispy bacon, a fried egg, cheddar, and hollandaise.",
-  },
-  {
-    id: "pork-verde-burger",
-    view: "lunch" as const,
-    name: "Pork Verde Burger",
-    price: 19,
-    detail: "Slow-roasted pork and spicy house-made chili verde.",
-  },
-  {
     id: "very-berry",
     view: "crepes" as const,
     name: "Very Berry Crepe",
     price: 14,
-    detail: "Berry compote and sweet cream. On the menu all day.",
+    detail: "Berry compote, sweet cream, and whipped cream. On all day.",
+    photo: "crepe.jpg",
+  },
+  {
+    id: "bbq-pork-sandwich",
+    view: "lunch" as const,
+    name: "BBQ Pork",
+    price: 16,
+    detail: "Slow-roasted pork with house barbecue.",
+    photo: "sandwich.jpg",
+  },
+  {
+    id: "pork-verde-omelette",
+    view: "breakfast" as const,
+    name: "Breakfast plate",
+    price: 14,
+    detail: "Omelette, country potatoes, and salsa. Until 11:30.",
+    photo: "omelette.jpg",
+  },
+];
+
+const shots = [
+  ["hero.jpg", "The patio at sunset, with the cliff behind the café."],
+  ["patio.jpg", "Tables under the pergola on Zion Park Boulevard."],
+  ["crepe.jpg", "Very Berry crepe, whipped cream, berry sauce."],
+  ["sandwich.jpg", "Pulled pork and a garden salad."],
+  ["omelette.jpg", "Omelette and country potatoes."],
+  ["zion.jpg", "Zion canyon, a short walk from the front door."],
+];
+
+const reviews = [
+  {
+    text: "Best food we had in our entire Utah trip. The crepes were incredible and the views from the patio are unmatched. We came back three times.",
+    author: "Sarah M.",
+    source: "Tripadvisor",
+  },
+  {
+    text: "Finally, a restaurant near Zion that doesn't feel like a tourist trap. Real food, fair prices, and the staff treats you like family.",
+    author: "Mike R.",
+    source: "Google",
+  },
+  {
+    text: "The Hawaiian burger is life-changing. My kids loved the crepes. MeMe herself came out to check on us.",
+    author: "Jessica T.",
+    source: "Yelp",
+  },
+  {
+    text: "We eat here every time we visit Zion. The patio with the canyon views at sunset is the best dining in southern Utah.",
+    author: "David & Karen L.",
+    source: "Tripadvisor",
   },
 ];
 
 function Home() {
   return (
     <div>
-      <section className="mx-auto max-w-5xl px-4 pt-6 pb-8">
+      <section className="relative min-h-[70vh] text-cream">
         <img
-          src={`${import.meta.env.BASE_URL}media/logo.png`}
-          alt="MeMe's Café. Breakfast, lunch, and dinner."
-          className="mx-auto w-full max-w-md"
+          src={media("hero.jpg")}
+          alt="MeMe's Café patio at sunset, red cliffs of Zion behind the building."
+          className="absolute inset-0 h-full w-full object-cover"
         />
-        <p className="mx-auto mt-4 max-w-lg text-center text-lg text-ink">
-          From-scratch cooking in downtown Springdale, a short walk from Zion.
-        </p>
-        <p className="mt-2 text-center font-semibold text-amber-deep">Open daily · 8am to 9pm</p>
-        <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
-          <Link to="/menu" search={{ view: "now" }} className={buttonClass("primary")}>
-            See the menu
-          </Link>
-          <a href={PLACE.mapsUrl} className={buttonClass("ink")}>
-            Directions
-          </a>
-          <a href={PLACE.phoneTel} className={`${buttonClass("ghost")} sm:hidden`}>
-            {PLACE.phoneDisplay}
-          </a>
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/20" />
+        <div className="relative mx-auto flex min-h-[70vh] max-w-5xl flex-col justify-end px-4 pt-16 pb-8">
+          <p className="text-sm font-semibold tracking-wide text-amber uppercase">
+            #1 in Springdale · Tripadvisor and Restaurant Guru
+          </p>
+          <h1 className="mt-2 max-w-xl font-display text-5xl leading-none font-semibold">
+            Scratch-made food near Zion.
+          </h1>
+          <p className="mt-3 max-w-md text-lg text-cream/90">
+            Crepes, breakfast, and half-pound burgers. Open daily, 8am to 9pm. Est. 2012.
+          </p>
+          <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+            <Link to="/menu" search={{ view: "now" }} className={buttonClass("primary")}>
+              See the menu
+            </Link>
+            <Link to="/order" className={buttonClass("ink")}>
+              Start a pickup order
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -65,15 +114,40 @@ function Home() {
         <div className="mx-auto grid max-w-5xl gap-4 px-4 py-6 sm:grid-cols-3">
           <Fact icon={Bus} title="Shuttle stop 5" body="Get off the Zion line and you're here." />
           <Fact icon={Car} title="Free parking" body="Patron lot down Juniper Lane." />
-          <Fact icon={Clock} title="No reservations" body="First come, first served. Order at the register." />
+          <Fact icon={Clock} title="No reservations" body="First come, first served. Hours can shift by season." />
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-5xl grid-cols-3 gap-3 px-4 py-8">
+        {[
+          ["14", "Years in Springdale"],
+          ["#1", "Restaurant in town"],
+          ["5,000+", "Five-star reviews"],
+        ].map(([n, label]) => (
+          <div key={label} className="rounded-card border border-line bg-paper px-3 py-4 text-center">
+            <p className="font-display text-3xl font-semibold text-amber-deep">{n}</p>
+            <p className="mt-1 text-sm text-bark">{label}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 pb-4">
+        <h2 className="font-display text-3xl font-semibold text-ink">Pictures</h2>
+        <p className="mt-1 max-w-xl text-bark">The patio, the plates, and the canyon you eat in front of.</p>
+        <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
+          {shots.map(([file, alt]) => (
+            <img
+              key={file}
+              src={media(file)}
+              alt={alt}
+              className="aspect-[4/3] w-full rounded-card object-cover"
+            />
+          ))}
         </div>
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-8">
         <h2 className="font-display text-3xl font-semibold text-ink">What people come back for</h2>
-        <p className="mt-1 max-w-xl text-bark">
-          Crepes, half-pound burgers, and sandwiches. Voted best take-away food in 2025.
-        </p>
         <div className="mt-4 grid gap-3 md:grid-cols-3">
           {favorites.map((item) => (
             <Link
@@ -81,38 +155,90 @@ function Home() {
               to="/menu"
               search={{ view: item.view }}
               hash={item.id}
-              className="rounded-card border border-line bg-paper p-4 transition-colors duration-200 hover:border-amber"
+              className="overflow-hidden rounded-card border border-line bg-paper transition-colors duration-200 hover:border-amber"
             >
-              <p className="font-display text-xl font-semibold text-ink">{item.name}</p>
-              <p className="mt-1 text-sm text-bark">{item.detail}</p>
-              <p className="mt-3 font-semibold text-amber-deep tabular-nums">{money(item.price)}</p>
+              <img src={media(item.photo)} alt="" className="aspect-square w-full object-cover" />
+              <div className="p-4">
+                <p className="font-display text-xl font-semibold text-ink">{item.name}</p>
+                <p className="mt-1 text-sm text-bark">{item.detail}</p>
+                <p className="mt-3 font-semibold text-amber-deep tabular-nums">{money(item.price)}</p>
+              </div>
             </Link>
           ))}
         </div>
       </section>
 
       <section className="mx-auto grid max-w-5xl gap-6 px-4 pb-10 md:grid-cols-2 md:items-center">
+        <img
+          src={media("patio.jpg")}
+          alt="Guests at tables under the MeMe's Café patio cover."
+          className="aspect-[4/3] w-full rounded-card object-cover"
+        />
         <div>
           <h2 className="font-display text-3xl font-semibold text-ink">MeMe loves to cook</h2>
           <p className="mt-3 text-ink">
-            Mechelle, called MeMe, opened the café in July 2012 with family and friends. It sits on Zion Park
-            Blvd, walking distance from most Springdale hotels, with a patio out front and the cliffs right
-            there.
+            Mechelle, called MeMe, loves to cook and opened the café in July 2012 with family and friends. It
+            sits downtown on Zion Park Blvd, shuttle stop 5, walking distance from most hotels.
           </p>
           <p className="mt-3 text-bark">
-            “I've had a few meals that I would describe as perfect. One of them was Tuesday night at MeMe's
-            Cafe in Springdale.” — Brian Passey, The Spectrum
+            Visitors come from across the country and overseas. The hope is that you see Zion, walk the town,
+            and eat here before you leave.
           </p>
           <Link to="/visit" className={`${buttonClass("ghost")} mt-5`}>
             Hours and how to get here
           </Link>
         </div>
-        <div className="rounded-card bg-ink p-5">
-          <img src={`${import.meta.env.BASE_URL}media/zion.png`} alt="" className="w-full mix-blend-screen" />
-          <p className="mt-3 flex items-start gap-2 text-sm text-cream">
-            <Footprints className="mt-0.5 size-4 shrink-0 text-amber" aria-hidden />
-            Eat, then walk to the shuttle. Breakfast runs to 11:30. Sweet crepes stay on all day.
+      </section>
+
+      <section className="bg-paper">
+        <div className="mx-auto max-w-5xl px-4 py-8">
+          <h2 className="font-display text-3xl font-semibold text-ink">What guests write</h2>
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            {reviews.map((review) => (
+              <figure key={review.author} className="rounded-card border border-line bg-cream p-4">
+                <p className="text-ink">“{review.text}”</p>
+                <figcaption className="mt-3 text-sm font-semibold text-bark">
+                  {review.author} · {review.source}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="mt-4 text-sm text-bark">
+            Ranked #1 restaurant in Springdale on Restaurant Guru, a 2026 award winner.{" "}
+            <a
+              href="https://restaurantguru.com/MeMes-Cafe-Springdale-Utah"
+              className="underline"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Restaurant Guru
+            </a>
+            {" · "}
+            <a
+              href="https://www.tripadvisor.com/Restaurant_Review-g61001-d3333371-Reviews-Meme_s_Cafe-Springdale_Utah.html"
+              className="underline"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Tripadvisor
+            </a>
           </p>
+        </div>
+      </section>
+
+      <section className="relative text-cream">
+        <img
+          src={media("zion.jpg")}
+          alt="Sunset over the red cliffs of Zion Canyon."
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-ink/45" />
+        <div className="relative mx-auto max-w-5xl px-4 py-16">
+          <h2 className="font-display text-4xl font-semibold">Steps from the canyon.</h2>
+          <p className="mt-2 max-w-md">Eat, then walk to the shuttle. Sweet crepes stay on all day.</p>
+          <a href={PLACE.mapsUrl} className={`${buttonClass("primary")} mt-5`}>
+            Directions
+          </a>
         </div>
       </section>
     </div>

@@ -8,7 +8,7 @@ import appCss from "../styles.css?url";
 const APP_NAME = "MeMe's Café";
 const SHARE_IMAGE = "https://memescafeinzion.github.io/memes-cafe/og.jpg";
 const SHARE_DESC =
-  "From-scratch breakfast, crepes, burgers, and sandwiches. Open daily 8am–9pm.";
+  "Scratch-made crepes, breakfast, and burgers near Zion National Park. Open daily 8am–9pm in Springdale.";
 
 export const Route = createRootRoute({
   head: () => ({
