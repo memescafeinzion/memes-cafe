@@ -47,15 +47,6 @@ const favorites = [
   },
 ];
 
-const shots = [
-  ["hero.jpg", "The patio at sunset, with the cliff behind the café."],
-  ["patio.jpg", "Tables under the pergola on Zion Park Boulevard."],
-  ["crepe.jpg", "Very Berry crepe, whipped cream, berry sauce."],
-  ["sandwich.jpg", "Pulled pork and a garden salad."],
-  ["omelette.jpg", "Omelette and country potatoes."],
-  ["zion.jpg", "Zion canyon, a short walk from the front door."],
-];
-
 const reviews = [
   {
     text: "Best food we had in our entire Utah trip. The crepes were incredible and the views from the patio are unmatched. We came back three times.",
@@ -108,21 +99,6 @@ function Home() {
           <Fact icon={Bus} title="Shuttle stop 5" body="Get off the Zion line and you're here." />
           <Fact icon={Car} title="Free parking" body="Patron lot down Juniper Lane." />
           <Fact icon={Clock} title="No reservations" body="First come, first served. Hours can shift by season." />
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-5xl px-4 pb-4 pt-8">
-        <h2 className="font-display text-3xl font-semibold text-ink">Pictures</h2>
-        <p className="mt-1 max-w-xl text-bark">The patio, the plates, and the canyon you eat in front of.</p>
-        <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
-          {shots.map(([file, alt]) => (
-            <img
-              key={file}
-              src={media(file)}
-              alt={alt}
-              className="aspect-[4/3] w-full rounded-card object-cover"
-            />
-          ))}
         </div>
       </section>
 
